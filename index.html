@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="topbar" aria-label="Main navigation">
+        <div class="container topbar-inner">
+            <a href="#dashboard" class="brand">
+                <span class="brand-mark"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                <span>
+                    <strong>Student Result</strong>
+                    <small>Management System</small>
+                </span>
+            </a>
+
+            <div class="nav-actions">
+                <div class="nav-links  ">
+                    <a href="#dashboard"><i class="bi bi-speedometer2" aria-hidden="true"></i> Dashboard</a>
+                    <a href="#student-login-id"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Login</a>
+                    <a href="#student-register"><i class="bi bi-person-plus" aria-hidden="true"></i> Register</a>
+                    <a href="#records"><i class="bi bi-search" aria-hidden="true"></i> Search</a>
+                    <a href="#student-result"><i class="bi bi-plus-circle" aria-hidden="true"></i> Add Result</a>
+                </div>
+                <div class="quick-search" role="search">
+                    <input type="search" id="quickSearchInput" placeholder="Quick search student">
+                    <button type="button" class="btn btn-light btn-small" id="quickSearchBtn"><i class="bi bi-search" aria-hidden="true"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="app-header">
+        <div class="container hero-panel">
+            <div class="school-logo" aria-label="School logo">
+                <img src="image/nbn.jpg" alt="School logo">
+            </div>
+            <div class="hero-content">
+                <span class="eyebrow">Academic Dashboard</span>
+                <h1>Student Result Management System</h1>
+                <p>Add student login IDs, calculate marks, manage records, and view dashboard performance in one simple browser app.</p>
+            </div>
+            <a class="btn btn-hero" href="#student-result"><i class="bi bi-plus-circle-fill" aria-hidden="true"></i> Add Result</a>
+        </div>
+    </header>
+
+    <main class="container app-layout">
+        <section class="dashboard-section section-anchor" id="dashboard" aria-labelledby="dashboard-title" >
+            <div class="section-heading dashboard-heading">
+                <div>
+                    <span class="eyebrow">Dashboard</span>
+                    <h2 id="dashboard-title">Class Performance Dashboard</h2>
+                    <p class="section-subtitle">Student records, fees, attendance, and course summary at a glance.</p>
+                </div>
+                <a class="btn btn-light dashboard-action" href="#records"><i class="bi bi-table" aria-hidden="true"></i> View Records</a>
+            </div>
+
+            <div class="stats-grid dashboard-stats" aria-label="School summary">
+                <article class="stat-card">
+                    <i class="bi bi-mortarboard-fill stat-icon" aria-hidden="true"></i>
+                    <span>Total Students</span>
+                    <strong id="totalStudents">0</strong>
+                </article>
+                <article class="stat-card girls">
+                    <i class="bi bi-gender-female stat-icon" aria-hidden="true"></i>
+                    <span>Total Girls</span>
+                    <strong id="totalGirls">0</strong>
+                </article>
+                <article class="stat-card boys">
+                    <i class="bi bi-gender-male stat-icon" aria-hidden="true"></i>
+                    <span>Total Boys</span>
+                    <strong id="totalBoys">0</strong>
+                </article>
+                <article class="stat-card courses">
+                    <i class="bi bi-journal-bookmark-fill stat-icon" aria-hidden="true"></i>
+                    <span>Total Courses</span>
+                    <strong id="totalCourses">0</strong>
+                </article>
+                <article class="stat-card fees">
+                    <i class="bi bi-cash-coin stat-icon" aria-hidden="true"></i>
+                    <span>Fees Pending</span>
+                    <strong id="feesPending">0</strong>
+                </article>
+                <article class="stat-card attendance">
+                    <i class="bi bi-calendar-check-fill stat-icon" aria-hidden="true"></i>
+                    <span>Present Today</span>
+                    <strong id="presentToday">0</strong>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel overview-panel section-anchor" aria-labelledby="overview-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Marks Overview</span>
+                    <h2 id="overview-title">Result Marks Overview</h2>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+                <article class="overview-card">
+                    <i class="bi bi-trophy-fill card-icon" aria-hidden="true"></i>
+                    <span>Top Performer</span>
+                    <strong id="topPerformer">-</strong>
+                    <small id="topPerformerScore">No data available</small>
+                </article>
+                <article class="overview-card">
+                    <i class="bi bi-bar-chart-fill card-icon" aria-hidden="true"></i>
+                    <span>Highest Subject Average</span>
+                    <strong id="topSubject">-</strong>
+                    <small id="topSubjectScore">No data available</small>
+                </article>
+                <article class="overview-card">
+                    <i class="bi bi-pie-chart-fill card-icon" aria-hidden="true"></i>
+                    <span>Pass Rate</span>
+                    <strong id="passRate">0%</strong>
+                    <small id="passRateText">No students added yet</small>
+                </article>
+            </div>
+
+            <div class="subject-overview" aria-label="Subject average marks">
+                <h3>Subject Average Marks</h3>
+                <div id="subjectAverages"></div>
+            </div>
+        </section>
+
+        <section class="panel about-panel section-anchor" id="about" aria-labelledby="about-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">About Project</span>
+                    <h2 id="about-title">About Student Result Management System</h2>
+                </div>
+            </div>
+            <p>
+                The Student Result Management System is a web-based application designed to manage and organize students' academic results efficiently. It helps schools, colleges, and educational institutions store student information, subjects, marks, grades, and overall performance in a systematic way. The system reduces manual paperwork and makes result management faster, easier, and more accurate. Administrators or teachers can add, update, and delete student records and enter marks for different subjects. Students can also view their results and performance details easily. The system can calculate total marks, percentages, grades, and pass or fail status automatically. By using technologies such as HTML, CSS, and JavaScript, the application provides a simple and user-friendly interface. In the future, it can be enhanced by connecting it with a MySQL database and a backend system for secure data storage and multi-user access.
+            </p>
+        </section>
+
+        <section class="panel login-info-panel section-anchor" id="student-login-id" aria-labelledby="login-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Student Login ID</span>
+                    <h2 id="login-title">Unique Login ID for Every Student</h2>
+                </div>
+            </div>
+            <div class="login-info-grid">
+                <article>
+                    <span class="login-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
+                    <div>
+                        <strong>Login Details</strong>
+                        <p>Every student record can include a login ID, username, and password entered manually.</p>
+                    </div>
+                </article>
+                <article>
+                    <span class="login-icon"><i class="bi bi-search-heart" aria-hidden="true"></i></span>
+                    <div>
+                        <strong>Easy Search</strong>
+                        <p>Search any student quickly by name, roll number, login ID, or username.</p>
+                    </div>
+                </article>
+                <article>
+                    <span class="login-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
+                    <div>
+                        <strong>No Duplicate Username</strong>
+                        <p>The app checks duplicate login IDs and usernames before saving a student result.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="auth-grid">
+                <form class="student-login-box auth-box" id="studentLoginForm" autocomplete="off">
+                    <h3>Student Login</h3>
+                    <p>Student ID, username, aur password enter karke apna result check karein.</p>
+                    <div class="login-form-grid">
+                        <label>
+                            Student ID
+                            <input type="text" id="studentLoginId" placeholder="e.g. STU-101" required>
+                        </label>
+                        <label>
+                            Username
+                            <input type="text" id="studentLoginUsername" placeholder="e.g. ayesha101" required>
+                        </label>
+                        <label>
+                            Password
+                            <input type="text" id="studentLoginPassword" placeholder="Enter password" required>
+                        </label>
+                        <button type="submit" class="btn btn-primary login-submit-btn"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Login</button>
+                    </div>
+                    <p class="form-note" id="loginMessage" role="status"></p>
+                </form>
+
+                <form class="student-login-box auth-box" id="studentRegisterForm" autocomplete="off">
+                    <h3 id="student-register">Student Register</h3>
+                    <p>Naya student account aur result yahan register karein.</p>
+                    <div class="form-grid register-form-grid">
+                        <label>
+                            Student Name
+                            <input type="text" id="registerStudentName" placeholder="e.g. Ayesha Khan" required>
+                        </label>
+                        <label>
+                            Roll Number
+                            <input type="text" id="registerRollNo" placeholder="e.g. R-105" required>
+                        </label>
+                        <label>
+                            Student Login ID
+                            <input type="text" id="registerLoginId" placeholder="e.g. STU-105" required>
+                        </label>
+                        <label>
+                            Username
+                            <input type="text" id="registerLoginUsername" placeholder="e.g. student105" required>
+                        </label>
+                        <label>
+                            Password
+                            <input type="text" id="registerLoginPassword" placeholder="Enter password" required>
+                        </label>
+                        <label>
+                            Class / Section
+                            <input type="text" id="registerClassName" placeholder="e.g. 10-A" required>
+                        </label>
+                        <label>
+                            Gender
+                            <select id="registerGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </label>
+                        <label>
+                            Course
+                            <input type="text" id="registerCourse" placeholder="e.g. Computer Science" required>
+                        </label>
+                        <label>
+                            Fees Status
+                            <select id="registerFeesStatus" required>
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                            </select>
+                        </label>
+                        <label>
+                            Attendance Today
+                            <select id="registerAttendanceStatus" required>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <h4 class="marks-title">Subject Marks</h4>
+                    <div class="form-grid register-marks-grid">
+                        <label>
+                            English
+                            <input type="number" id="registerEnglish" min="0" max="100" placeholder="0 - 100" required>
+                        </label>
+                        <label>
+                            Math
+                            <input type="number" id="registerMath" min="0" max="100" placeholder="0 - 100" required>
+                        </label>
+                        <label>
+                            Science
+                            <input type="number" id="registerScience" min="0" max="100" placeholder="0 - 100" required>
+                        </label>
+                        <label>
+                            Social Studies
+                            <input type="number" id="registerSocial" min="0" max="100" placeholder="0 - 100" required>
+                        </label>
+                        <label>
+                            Computer
+                            <input type="number" id="registerComputer" min="0" max="100" placeholder="0 - 100" required>
+                        </label>
+                    </div>
+                    <p class="form-note" id="registerMessage" role="status"></p>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-person-plus-fill" aria-hidden="true"></i> Register Student</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="panel form-panel section-anchor" id="student-result" aria-labelledby="form-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Student Result</span>
+                    <h2 id="form-title">Add Student Result</h2>
+                </div>
+                <button type="button" class="btn btn-light" id="resetBtn"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> Reset</button>
+            </div>
+
+            <form id="studentForm" autocomplete="off">
+                <div class="form-grid student-info-grid">
+                    <label>
+                        Student Name
+                        <input type="text" id="studentName" placeholder="e.g. Ayesha Khan" required>
+                    </label>
+
+                    <label>
+                        Roll Number
+                        <input type="text" id="rollNo" placeholder="e.g. R-101" required>
+                    </label>
+
+                    <label>
+                        Student Login ID
+                        <input type="text" id="loginId" placeholder="e.g. STU-101" required>
+                    </label>
+
+                    <label>
+                        Login Username
+                        <input type="text" id="loginUsername" placeholder="e.g. ayesha101" required>
+                    </label>
+
+                    <label>
+                        Login Password
+                        <input type="text" id="loginPassword" placeholder="Enter password" required>
+                    </label>
+
+                    <label>
+                        Class / Section
+                        <input type="text" id="className" placeholder="e.g. 10-A" required>
+                    </label>
+                    <label>
+                        Gender
+                        <select id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+                    <label>
+                        Course
+                        <input type="text" id="course" placeholder="e.g. Computer Science" required>
+                    </label>
+                    <label>
+                        Fees Status
+                        <select id="feesStatus" required>
+                            <option value="Paid">Paid</option>
+                            <option value="Unpaid">Unpaid</option>
+                        </select>
+                    </label>
+                    <label>
+                        Attendance Today
+                        <select id="attendanceStatus" required>
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                    </label>
+                </div>
+
+                <h3 class="marks-title">Subject Marks</h3>
+                <div class="form-grid marks-grid">
+                    <label>
+                        English
+                        <input type="number" id="english" min="0" max="100" placeholder="0 - 100" required>
+                    </label>
+
+                    <label>
+                        Math
+                        <input type="number" id="math" min="0" max="100" placeholder="0 - 100" required>
+                    </label>
+
+                    <label>
+                        Science
+                        <input type="number" id="science" min="0" max="100" placeholder="0 - 100" required>
+                    </label>
+
+                    <label>
+                        Social Studies
+                        <input type="number" id="social" min="0" max="100" placeholder="0 - 100" required>
+                    </label>
+
+                    <label>
+                        Computer
+                        <input type="number" id="computer" min="0" max="100" placeholder="0 - 100" required>
+                    </label>
+                </div>
+
+                <p class="form-note" id="formMessage" role="status"></p>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn"><i class="bi bi-plus-circle-fill" aria-hidden="true"></i> Add Result</button>
+            </form>
+        </section>
+
+        <section class="panel table-panel section-anchor" id="records" aria-labelledby="table-title">
+            <div class="section-heading controls-heading">
+                <div>
+                    <span class="eyebrow">Records</span>
+                    <h2 id="table-title">Student Results</h2>
+                </div>
+                <button type="button" class="btn btn-danger" id="clearAllBtn"><i class="bi bi-trash3" aria-hidden="true"></i> Clear All</button>
+            </div>
+
+            <div class="controls">
+                <label>
+                    Search
+                    <input type="search" id="searchInput" placeholder="Search name, roll no, class, gender, course, unpaid, or present">
+                </label>
+
+                <label>
+                    Gender
+                    <select id="genderFilter">
+                        <option value="all">All Gender</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </label>
+
+                <label>
+                    Fees
+                    <select id="feesFilter">
+                        <option value="all">All Fees</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Unpaid">Unpaid</option>
+                    </select>
+                </label>
+
+                <label>
+                    Today
+                    <select id="todayFilter">
+                        <option value="all">All Today</option>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </label>
+
+                <label>
+                    Result
+                    <select id="statusFilter">
+                        <option value="all">All Results</option>
+                        <option value="Pass">Pass</option>
+                        <option value="Fail">Fail</option>
+                    </select>
+                </label>
+
+                <label>
+                    Grade
+                    <select id="gradeFilter">
+                        <option value="all">All Grades</option>
+                        <option value="A+">A+</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Roll No</th>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Password</th>
+                            <th>Class</th>
+                            <th>Gender</th>
+                            <th>Course</th>
+                            <th>Fees</th>
+                            <th>Today</th>
+                            <th>Eng</th>
+                            <th>Math</th>
+                            <th>Sci</th>
+                            <th>Soc</th>
+                            <th>Comp</th>
+                            <th>Total</th>
+                            <th>%</th>
+                            <th>Grade</th>
+                            <th>Result</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" id="emptyState">
+                <h3>No student records found</h3>
+                <p>Add the first result using the form above.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
