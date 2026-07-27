@@ -201,7 +201,7 @@ export default function MyResult() {
       } catch (err) {
         setResults(demoResults)
         setSelectedExamId(String(demoResults[0].exam_id))
-        setError(err.response?.data?.message || 'Backend se result nahi mila, demo result dikha rahe hain.')
+        setError(err.response?.data?.message || 'The result could not be loaded from the backend, so a demo result is being shown.')
       }
     }
 
@@ -226,7 +226,7 @@ export default function MyResult() {
         setMarksheet(response.data.data)
       } catch (err) {
         setMarksheet(demoMarksheet)
-        setError(err.response?.data?.message || 'Backend se marksheet nahi mili, demo marksheet dikha rahe hain.')
+        setError(err.response?.data?.message || 'The marksheet could not be loaded from the backend, so a demo marksheet is being shown.')
       } finally {
         setLoading(false)
       }
@@ -250,7 +250,7 @@ export default function MyResult() {
       <Stack spacing={3}>
         <Box>
           <Typography variant="h4" fontWeight={700}>My Result</Typography>
-          <Typography color="text.secondary">Exam select karke apna complete result dekhein.</Typography>
+          <Typography color="text.secondary">Select an exam to view your complete result.</Typography>
         </Box>
 
         {error && <Alert severity="warning">{error}</Alert>}
@@ -277,7 +277,7 @@ export default function MyResult() {
         </Paper>
 
         {!loading && !result && (
-          <Alert severity="info">Abhi koi published result available nahi hai.</Alert>
+          <Alert severity="info">No published result is available yet.</Alert>
         )}
 
         {result && (

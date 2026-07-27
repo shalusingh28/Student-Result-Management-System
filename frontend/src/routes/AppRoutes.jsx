@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
 import Exams from '../pages/Exams'
+import Home from '../pages/Home'
 import Login from '../pages/Login'
 import MarksEntry from '../pages/MarksEntry'
 import MyResult from '../pages/MyResult'
@@ -19,8 +20,9 @@ function ProtectedRoute({ children }) {
 export default function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
       <Route path="/exams" element={<ProtectedRoute><Exams /></ProtectedRoute>} />
       <Route path="/marks-entry" element={<ProtectedRoute><MarksEntry /></ProtectedRoute>} />

@@ -53,7 +53,7 @@ export default function TeacherAttendance() {
         setClasses(nextClasses.length ? nextClasses : demoClasses)
       } catch (err) {
         setClasses(demoClasses)
-        setError(err.response?.data?.message || 'Classes load nahi hui, demo class dikha rahe hain.')
+        setError(err.response?.data?.message || 'Classes could not be loaded, so demo classes are being shown.')
       }
     }
 
@@ -77,7 +77,7 @@ export default function TeacherAttendance() {
         setSubjects(nextSubjects.length ? nextSubjects : demoSubjects)
       } catch (err) {
         setSubjects(demoSubjects)
-        setError(err.response?.data?.message || 'Subjects load nahi hue, demo subject dikha rahe hain.')
+        setError(err.response?.data?.message || 'Subjects could not be loaded, so demo subjects are being shown.')
       }
     }
 
@@ -89,7 +89,7 @@ export default function TeacherAttendance() {
 
   const loadRoster = async () => {
     if (!selectedClassData || !selectedSubjectData || !attendanceDate) {
-      setError('Class, subject aur date select karein.')
+      setError('Please select class, subject, and date.')
       return
     }
 
@@ -111,7 +111,7 @@ export default function TeacherAttendance() {
       setRoster(response.data.data || [])
     } catch (err) {
       setRoster(demoRoster)
-      setError(err.response?.data?.message || 'Roster load nahi hua, demo roster dikha rahe hain.')
+      setError(err.response?.data?.message || 'Roster could not be loaded, so a demo roster is being shown.')
     } finally {
       setLoading(false)
     }
@@ -149,7 +149,7 @@ export default function TeacherAttendance() {
       setMessage('Attendance saved successfully.')
       await loadRoster()
     } catch (err) {
-      setError(err.response?.data?.message || 'Attendance save nahi hui. Backend check karein.')
+      setError(err.response?.data?.message || 'Attendance could not be saved. Please check the backend.')
     } finally {
       setLoading(false)
     }
@@ -230,7 +230,7 @@ export default function TeacherAttendance() {
             <TableBody>
               {roster.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={5}>Class, subject aur date select karke Load Students click karein.</TableCell>
+                  <TableCell colSpan={5}>Select class, subject, and date, then click Load Students.</TableCell>
                 </TableRow>
               )}
               {roster.map((student) => (

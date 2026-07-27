@@ -10,22 +10,22 @@ const chartColors = ['#1D4ED8', '#15803D', '#C2410C', '#7E22CE', '#BE123C']
 const dashboardContent = {
   TEACHER: {
     title: 'Teacher Dashboard',
-    subtitle: 'Assigned subjects ke marks enter/update karein.',
+    subtitle: 'Enter or update marks for assigned subjects.',
     cards: [
-      ['Assigned Subjects', 'Teacher ke assigned exam subjects dekh sakte hain.'],
-      ['Marks Entry', 'Internal + Practical + External marks enter karein.'],
-      ['Validation', 'System total marks aur pass/fail automatically calculate karta hai.'],
-      ['Students', 'Assigned students ka academic data dekh sakte hain.'],
+      ['Assigned Subjects', 'View exam subjects assigned to the teacher.'],
+      ['Marks Entry', 'Enter internal, practical, and external marks.'],
+      ['Validation', 'The system automatically calculates total marks and pass/fail status.'],
+      ['Students', 'View academic data for assigned students.'],
     ],
   },
   STUDENT: {
     title: 'Student Dashboard',
-    subtitle: 'Published result, notifications aur marksheet dekhein.',
+    subtitle: 'View published results, notifications, and marksheets.',
     cards: [
-      ['My Results', 'Sirf published results student ko visible honge.'],
-      ['My Marksheet', 'Published result ke baad marksheet view/download data milega.'],
-      ['Notifications', 'Result published notification yahan milegi.'],
-      ['Profile', 'Course, roll number aur student details dekh sakte hain.'],
+      ['My Results', 'Only published results are visible to students.'],
+      ['My Marksheet', 'After result publication, marksheet view and download details will be available.'],
+      ['Notifications', 'Result publication notifications will appear here.'],
+      ['Profile', 'View course, roll number, and student details.'],
     ],
   },
 }
@@ -138,7 +138,7 @@ export default function Dashboard() {
   const isAdmin = role === 'ADMIN' || role === 'SUPER_ADMIN'
   const content = dashboardContent[role] || {
     title: 'Admin Dashboard',
-    subtitle: 'Complete academic, examination, marks and result publication workflow manage karein.',
+    subtitle: 'Manage the complete academic, examination, marks, and result publication workflow.',
   }
   const [dashboardData, setDashboardData] = useState({
     students: [],
@@ -181,7 +181,7 @@ export default function Dashboard() {
     }
 
     loadDashboardData().catch((err) => {
-      setError(err.response?.data?.message || 'Dashboard data load nahi ho pa raha. Backend run hai ya nahi check karein.')
+      setError(err.response?.data?.message || 'Dashboard data could not be loaded. Please check whether the backend is running.')
     })
   }, [isAdmin, token])
 
@@ -348,7 +348,7 @@ export default function Dashboard() {
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ sm: 'center' }} justifyContent="space-between">
                   <Box>
                     <Typography variant="h6" fontWeight={700}>Attendance</Typography>
-                    <Typography color="text.secondary">Class, subject aur date select karke student attendance mark karein.</Typography>
+                    <Typography color="text.secondary">Select class, subject, and date to mark student attendance.</Typography>
                   </Box>
                   <Button component={Link} to="/teacher-attendance" variant="contained">Mark Attendance</Button>
                 </Stack>
@@ -359,7 +359,7 @@ export default function Dashboard() {
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ sm: 'center' }} justifyContent="space-between">
                   <Box>
                     <Typography variant="h6" fontWeight={700}>My Result</Typography>
-                    <Typography color="text.secondary">Select Exam karke complete marksheet aur final result dekhein.</Typography>
+                    <Typography color="text.secondary">Select an exam to view the complete marksheet and final result.</Typography>
                   </Box>
                   <Button component={Link} to="/my-result" variant="contained">View Result</Button>
                 </Stack>

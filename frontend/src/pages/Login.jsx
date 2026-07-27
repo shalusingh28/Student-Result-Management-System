@@ -34,9 +34,9 @@ export default function Login() {
     try {
       const auth = await login(identifier.trim(), password)
       setLoginInfo(auth)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Backend run hai aur credentials sahi hain ye check karein.')
+      setError(err.response?.data?.message || 'Login failed. Please check that the backend is running and the credentials are correct.')
     } finally {
       setLoading(false)
     }
@@ -48,7 +48,7 @@ export default function Login() {
         <Stack spacing={3}>
           <Stack spacing={1}>
             <Typography variant="h4" fontWeight={700}>Login</Typography>
-            <Typography color="text.secondary">Apna role select karke valid username aur password se login karein.</Typography>
+            <Typography color="text.secondary">Select your role and log in with a valid username and password.</Typography>
           </Stack>
 
           {error && <Alert severity="error">{error}</Alert>}

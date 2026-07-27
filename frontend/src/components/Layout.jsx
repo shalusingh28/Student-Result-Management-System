@@ -3,7 +3,8 @@ import { Link, Outlet } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 const adminNavItems = [
-  { label: 'Dashboard', path: '/' },
+  { label: 'Home', path: '/' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Students', path: '/students' },
   { label: 'Exams', path: '/exams' },
   { label: 'Marks Entry', path: '/marks-entry' },
@@ -12,13 +13,15 @@ const adminNavItems = [
 ]
 
 const teacherNavItems = [
-  { label: 'Dashboard', path: '/' },
+  { label: 'Home', path: '/' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Marks Entry', path: '/marks-entry' },
   { label: 'Attendance', path: '/teacher-attendance' },
 ]
 
 const studentNavItems = [
-  { label: 'Dashboard', path: '/' },
+  { label: 'Home', path: '/' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'My Result', path: '/my-result' },
 ]
 

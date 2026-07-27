@@ -260,7 +260,7 @@ export default function AdminReports() {
         }
       } catch (err) {
         setRows([])
-        setError(err.response?.data?.message || 'Report load nahi ho pa raha. Backend check karein.')
+        setError(err.response?.data?.message || 'Report could not be loaded. Please check the backend.')
       } finally {
         setLoading(false)
       }
@@ -296,7 +296,7 @@ export default function AdminReports() {
         <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" spacing={2} alignItems={{ sm: 'center' }}>
           <Box>
             <Typography variant="h4" fontWeight={700}>Reports & Analytics</Typography>
-            <Typography color="text.secondary">Admin reports generate karein, analytics dekhein aur CSV download karein.</Typography>
+            <Typography color="text.secondary">Generate admin reports, view analytics, and download CSV files.</Typography>
           </Box>
           <Button variant="contained" onClick={() => downloadCsv(`${selectedReport}-report.csv`, rows)} disabled={!rows.length}>Download CSV</Button>
         </Stack>
