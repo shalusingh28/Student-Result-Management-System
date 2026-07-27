@@ -6,9 +6,10 @@ const mysql = require("mysql2/promise");
 
 const schemaPath = path.join(__dirname, "src", "sql", "schema.sql");
 const seedPath = path.join(__dirname, "src", "sql", "seed.sql");
+const databaseName = process.env.DB_NAME || process.env.MYSQLDATABASE || "student_result_db";
 
 const runSqlFile = async (connection, filePath, label) => {
-  const sql = fs.readFileSync(filePath, "utf8");
+  const sql = fs.readFileSync(filePath, "utf8").replaceAll("student_result_db", databaseName);
   await connection.query(sql);
   console.log(`${label} completed successfully.`);
 };
@@ -170,11 +171,11 @@ const ensureExaminationSchema = async (connection, databaseName) => {
 };
 
 const main = async () => {
-  const databaseName = process.env.DB_NAME || "student_result_db";
   const connection = await mysql.createConnection({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
+    host: process.env.DB_HOST || process.env.MYSQLHOST || "localhost",
+    port: Number(process.env.DB_PORT || process.env.MYSQLPORT) || 3306,
+    user: process.env.DB_USER || process.env.MYSQLUSER || "root",
+    password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "",
     multipleStatements: true,
   });
 
